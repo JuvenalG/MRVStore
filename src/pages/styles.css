@@ -1,0 +1,18 @@
+.logout-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+}
+
+.logout-page h1 {
+    color: #4caf50;
+    margin-bottom: 20px;
+}
+
+.logout-page p {
+    font-size: 1rem;
+    color: #555;
+}

@@ -1,0 +1,45 @@
+/* Admin.css */
+
+.admin-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+.loading {
+    font-size: 20px;
+    color: #007bff;
+}
+
+.error {
+    font-size: 18px;
+    color: red;
+}
+
+.token-box {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    max-width: 600px;
+    word-wrap: break-word;
+}
+
+.button {
+    margin-top: 20px;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}
