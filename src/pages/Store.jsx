@@ -1,16 +1,45 @@
-import React from "react";
-
-const items = [
-    { id: 1, title: "Item 1", description: "Description 1", price: 10.0, image: "https://via.placeholder.com/150" },
-    { id: 2, title: "Item 2", description: "Description 2", price: 20.0, image: "https://via.placeholder.com/150" },
-    { id: 3, title: "Item 3", description: "Description 3", price: 30.0, image: "https://via.placeholder.com/150" },
-];
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 const Store = ({ addToCart }) => {
+    const [items, setItems] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const fetchItems = async () => {
+            try {
+                const response = await axios.get(
+                    "https://alx55pkslj.execute-api.us-west-1.amazonaws.com/default/getItem", // Replace with your actual API URL
+                    {
+                        params: {
+                            TableName: "StoreItems", // Match the DynamoDB table name
+                        },
+                    }
+                );
+                setItems(response.data);
+            } catch (err) {
+                setError("Failed to fetch items. " + err.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchItems();
+    }, []);
+
+    if (loading) {
+        return <p>Loading items...</p>;
+    }
+
+    if (error) {
+        return <p className="error">{error}</p>;
+    }
+
     return (
         <div style={{ padding: "20px" }}>
             <h1>Store</h1>
-            <div style={{ display: "flex", gap: "20px" }}>
+            <div style={{ display: "flex", gap: "20px", flexWrap: "wrap" }}>
                 {items.map((item) => (
                     <div key={item.id} style={{ border: "1px solid #ddd", padding: "10px", width: "200px" }}>
                         <img src={item.image} alt={item.title} style={{ width: "100%" }} />

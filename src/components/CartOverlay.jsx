@@ -1,62 +1,44 @@
 import React from "react";
 
-const CartOverlay = ({ cartItems, onClose, updateQuantity, removeFromCart, tax, delivery }) => {
-    const totalPrice = cartItems.reduce(
-        (sum, item) => sum + item.quantity * item.price,
-        0
-    );
-    const taxAmount = totalPrice * tax;
-    const grandTotal = totalPrice + taxAmount + delivery;
+
+const CartOverlay = ({ isOpen, cartItems, updateQuantity, summary, tax, deliveryFee, onClose }) => {
+    if (!isOpen) return null;
 
     return (
-        <div
-            style={{
-                position: "fixed",
-                top: 0,
-                right: 0,
-                width: "300px",
-                height: "100%",
-                backgroundColor: "white",
-                borderLeft: "1px solid #ddd",
-                padding: "20px",
-                boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
-            }}
-        >
-            <button
-                style={{
-                    position: "absolute",
-                    top: "10px",
-                    right: "10px",
-                    background: "none",
-                    border: "none",
-                    fontSize: "16px",
-                    cursor: "pointer",
-                }}
-                onClick={onClose}
-            >
-                X
-            </button>
-            <h3>Cart</h3>
-            <ul>
-                {cartItems.map((item) => (
-                    <li key={item.id}>
-                        {item.title} - ${item.price} x {item.quantity}
-                        <button onClick={() => updateQuantity(item.id, item.quantity - 1)}>
-                            -
-                        </button>
-                        <button onClick={() => updateQuantity(item.id, item.quantity + 1)}>
-                            +
-                        </button>
-                        <button onClick={() => removeFromCart(item.id)}>Remove</button>
-                    </li>
-                ))}
-            </ul>
-            <h4>Summary</h4>
-            <p>Items: {cartItems.reduce((sum, item) => sum + item.quantity, 0)}</p>
-            <p>Total: ${totalPrice.toFixed(2)}</p>
-            <p>Tax: ${taxAmount.toFixed(2)}</p>
-            <p>Delivery: ${delivery.toFixed(2)}</p>
-            <h3>Grand Total: ${grandTotal.toFixed(2)}</h3>
+        <div className="cart-overlay">
+            <div className="overlay-content">
+                <button className="close-button" onClick={onClose}>X</button>
+                <h2>Your Cart</h2>
+                {cartItems.length === 0 ? (
+                    <p>Your cart is empty.</p>
+                ) : (
+                    <div>
+                        <ul className="cart-items">
+                            {cartItems.map((item) => (
+                                <li key={item.id} className="cart-item">
+                                    <img src={item.image} alt={item.title} />
+                                    <div>
+                                        <h3>{item.title}</h3>
+                                        <p>${item.price.toFixed(2)}</p>
+                                        <div>
+                                            <button onClick={() => updateQuantity(item.id, item.quantity - 1)}>-</button>
+                                            <span>{item.quantity}</span>
+                                            <button onClick={() => updateQuantity(item.id, item.quantity + 1)}>+</button>
+                                        </div>
+                                    </div>
+                                    <p>Total: ${(item.price * item.quantity).toFixed(2)}</p>
+                                </li>
+                            ))}
+                        </ul>
+                        <div className="summary">
+                            <p>Subtotal: ${summary.subtotal.toFixed(2)}</p>
+                            <p>Tax: ${summary.taxAmount.toFixed(2)}</p>
+                            <p>Delivery: ${deliveryFee.toFixed(2)}</p>
+                            <h3>Total: ${summary.total.toFixed(2)}</h3>
+                        </div>
+                    </div>
+                )}
+            </div>
         </div>
     );
 };

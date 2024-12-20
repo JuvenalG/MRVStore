@@ -1,38 +1,195 @@
-.App {
-  text-align: center;
+/* App.css */
+
+/* Global Styles */
+:root {
+  --primary-color: #6A1B9A;
+  /* Purple */
+  --secondary-color: #333;
+  /* Dark Gray */
+  --background-color: #F5F5F5;
+  /* Light Gray */
+  --text-color: #333;
+  /* Standard Text */
+  --accent-color: #FFFFFF;
+  /* White */
+  --font-family: "Montserrat", sans-serif;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  background-color: var(--background-color);
+  color: var(--text-color);
+  box-sizing: border-box;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+a {
+  text-decoration: none;
+  color: inherit;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* Navbar Styles */
+.navbar {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--primary-color);
+  padding: 10px 20px;
+  height: 80px;
+  /* Standard height for the navbar */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+  /* Allows the logo to hang */
+}
+
+.navbar-logo {
+  position: relative;
+}
+
+.navbar-logo .logo {
+  height: 200px;
+  /* Adjust logo height */
+  width: auto;
+  /* Maintain aspect ratio */
+  position: absolute;
+  bottom: -125px;
+  /* Ensures the logo hangs 10px below the navbar */
+  left: 80px;
+  /* Aligns the logo with the navbar content */
+  transform: translateY(0);
+  /* Prevents logo movement when scaling */
+  object-fit: contain;
+  /* Ensures the image scales correctly */
+}
+
+/* Navbar links */
+.navbar ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar li {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.navbar li a {
+  color: var(--accent-color);
+  transition: color 0.3s ease;
+}
+
+.navbar li a:hover {
+  color: #FFC107;
+  /* Gold Accent on Hover */
+}
+
+/* Cart Bubble Styles */
+.cart-bubble {
+  background-color: var(--primary-color);
+  color: var(--accent-color);
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  padding: 10px;
+  border-radius: 50%;
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
-.App-link {
-  color: #61dafb;
+.cart-bubble .count {
+  background-color: #FFC107;
+  /* Gold */
+  color: var(--secondary-color);
+  border-radius: 50%;
+  padding: 5px 10px;
+  font-size: 14px;
+  font-weight: bold;
+  margin-left: 5px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Cart Overlay Styles */
+.cart-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.cart-overlay .overlay-content {
+  background-color: var(--accent-color);
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 600px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.cart-overlay .close-button {
+  background: none;
+  border: none;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  float: right;
+  color: var(--secondary-color);
+}
+
+.cart-overlay .cart-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.cart-overlay .cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.cart-overlay .cart-item img {
+  height: 50px;
+  width: 50px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.cart-overlay .summary {
+  margin-top: 20px;
+  font-size: 16px;
+}
+
+.cart-overlay .summary h3 {
+  margin-top: 10px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* Utility Classes */
+button {
+  background-color: var(--primary-color);
+  color: var(--accent-color);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: var(--secondary-color);
 }

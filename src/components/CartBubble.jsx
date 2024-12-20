@@ -1,27 +1,11 @@
 import React from "react";
 
-const CartBubble = ({ cartItems, onClick }) => {
-    const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
+const CartBubble = ({ itemCount, onClick }) => {
     return (
-        <div
-            onClick={onClick}
-            style={{
-                position: "absolute",
-                top: "10px",
-                right: "10px",
-                backgroundColor: "#ff6347",
-                color: "white",
-                borderRadius: "50%",
-                width: "30px",
-                height: "30px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                cursor: "pointer",
-            }}
-        >
-            {totalItems}
+        <div className="cart-bubble" onClick={onClick}>
+            <span className="icon">🛒</span>
+            {itemCount > 0 && <span className="count">{itemCount}</span>}
         </div>
     );
 };
