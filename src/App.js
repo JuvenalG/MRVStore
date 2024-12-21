@@ -1,19 +1,46 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Admin from "./pages/Admin";
+import Admin from "./pages/admin";
 import Logout from "./pages/Logout";
 import Home from "./pages/Home";
 import Store from "./pages/Store";
 import CartBubble from "./components/CartBubble";
 import CartOverlay from "./components/CartOverlay";
 import Navbar from "./components/Navbar";
+import axios from "axios";
 import './App.css';
 
 function App() {
   const [cartItems, setCartItems] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [tax, setTax] = useState(0.1); // 10% tax
-  const [deliveryFee, setDeliveryFee] = useState(5.0); // $5 delivery fee
+  const [tax, setTax] = useState(0.1); // Placeholder until fetched from the table
+  const [deliveryFee, setDeliveryFee] = useState(5.0); // Placeholder until fetched from the table
+
+  useEffect(() => {
+    const fetchTaxAndDelivery = async () => {
+      try {
+        const response = await axios.get(
+          "https://alx55pkslj.execute-api.us-west-1.amazonaws.com/default/getItem", // Replace with your actual API URL
+          {
+            params: {
+              TableName: "Settings", // Assuming the table where tax and delivery are stored
+            },
+          }
+        );
+
+        const settings = response.data;
+        const taxSetting = settings.find((item) => item.key === "tax");
+        const deliverySetting = settings.find((item) => item.key === "delivery");
+
+        if (taxSetting) setTax(parseFloat(taxSetting.value));
+        if (deliverySetting) setDeliveryFee(parseFloat(deliverySetting.value));
+      } catch (error) {
+        console.error("Failed to fetch tax and delivery settings:", error);
+      }
+    };
+
+    fetchTaxAndDelivery();
+  }, []);
 
   const addToCart = (item) => {
     setCartItems((prevCart) => {
@@ -74,7 +101,7 @@ function App() {
         />
         <Route
           path="/admin"
-          element={<Admin setTax={setTax} setDeliveryFee={setDeliveryFee} />}
+          element={<Admin setTax={setTax} setDeliveryFee={setDeliveryFee} />} // Updated admin props
         />
         <Route path="/logout" element={<Logout />} />
         <Route path="/about" element={<div><h1>About Us</h1><p>Information about us.</p></div>} />

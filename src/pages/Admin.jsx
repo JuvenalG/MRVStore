@@ -5,6 +5,8 @@ import "./Admin.css";
 
 function Admin() {
     const auth = useAuth();
+    const [deliveryFeeTitle, setDeliveryFeeTitle] = useState(""); // Primary key for delivery fee option
+
     const [items, setItems] = useState([]); // State to store fetched items
     const [error, setError] = useState(null); // State to store error message
     const [responseBody, setResponseBody] = useState(null); // State to store the response body
@@ -14,9 +16,12 @@ function Admin() {
         price: '',
         imageUrl: '',
     }); // State for the new item form
+    const [deliveryFee, setDeliveryFee] = useState(0); // State for delivery fee
 
-    const apiUrl = "https://e6kqry5fv9.execute-api.us-west-1.amazonaws.com/default/createItem"; // Replace with your actual API Gateway URL
+    const apiUrl = "https://api.mrvco.com/createItem"; // Replace with your actual API Gateway URL
     const deleteApiUrl = "https://e6kqry5fv9.execute-api.us-west-1.amazonaws.com/default/createItem"; // Same as above for delete
+    const optionsUrl = "https://api.mrvco.com/options";
+
 
     // Fetch items from the DynamoDB table
     const fetchItems = async () => {
@@ -43,9 +48,68 @@ function Admin() {
         }
     };
 
-    const handleSignOut = () => {
-        auth.removeUser();
+    // Fetch the current delivery fee from the Options table
+    const fetchDeliveryFee = async () => {
+        try {
+            const response = await axios.get(optionsUrl, {
+                headers: {
+                    Authorization: `Bearer ${auth.user?.access_token}`,
+                },
+                params: {
+                    TableName: "Options", // Ensure the TableName parameter is included
+                },
+            });
 
+            const deliveryOption = response.data.find(option => option.optionName === "delivery");
+            if (deliveryOption) {
+                setDeliveryFee(deliveryOption.optionValue);
+                setDeliveryFeeTitle(deliveryOption.title); // Save the primary key for updates
+            }
+        } catch (err) {
+            console.error("Error fetching delivery fee:", err);
+            setError("Error fetching delivery fee: " + err.message);
+        }
+    };
+
+    // Update the delivery fee in the Options table
+    const updateDeliveryFee = async () => {
+        try {
+            const response = await axios.put(optionsUrl, {
+                title: deliveryFeeTitle, // Use the existing title as the primary key
+                optionName: "delivery",
+                optionValue: deliveryFee,
+            }, {
+                headers: {
+                    Authorization: `Bearer ${auth.user?.access_token}`,
+                    "Content-Type": "application/json",
+                },
+                params: {
+                    TableName: "Options", // Ensure the TableName parameter is included
+                },
+            });
+
+            if (response.status === 200) {
+                console.log("Delivery fee updated successfully.");
+            } else {
+                console.error(`Failed to update delivery fee: ${response.status}`);
+                setError(`Failed to update delivery fee: ${response.status}`);
+            }
+        } catch (err) {
+            console.error("Error updating delivery fee:", err);
+            setError("Error updating delivery fee: " + err.message);
+        }
+    };
+
+    const signOutRedirect = () => {
+        const clientId = "3cnq10hkpdqt0mk9klnaohn7g6";
+        const logoutUri = "http://localhost:3000/logout";
+        const cognitoDomain = "https://mrv.auth.us-west-1.amazoncognito.com";
+        window.location.href = `${cognitoDomain}/logout?client_id=${clientId}&logout_uri=${encodeURIComponent(logoutUri)}`;
+    };
+
+    const signOutOrder = () => {
+        auth.removeUser();
+        signOutRedirect();
     };
 
 
@@ -112,6 +176,7 @@ function Admin() {
     useEffect(() => {
         if (auth.isAuthenticated) {
             fetchItems(); // Fetch items from the API
+            fetchDeliveryFee(); // Fetch delivery fee from the API
         }
     }, [auth.isAuthenticated]);
 
@@ -162,6 +227,17 @@ function Admin() {
                     <button onClick={addNewItem}>Add Item</button>
                 </div>
 
+                {/* Update Delivery Fee */}
+                <div className="update-delivery-fee">
+                    <h3>Update Delivery Fee</h3>
+                    <input
+                        type="number"
+                        value={deliveryFee}
+                        onChange={(e) => setDeliveryFee(Number(e.target.value))}
+                    />
+                    <button onClick={updateDeliveryFee}>Update Delivery Fee</button>
+                </div>
+
                 {/* Display Items in Table */}
                 <div className="item-list">
                     <h3>Items from DynamoDB</h3>
@@ -194,9 +270,7 @@ function Admin() {
                         </table>
                     )}
                 </div>
-                <button className="signout-button" onClick={handleSignOut}>
-                    Sign Out
-                </button>
+                <button onClick={() => signOutOrder()}>Sign out</button>
             </div>
         );
     }

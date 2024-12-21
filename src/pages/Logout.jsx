@@ -8,7 +8,7 @@ const Logout = () => {
         // Redirect back to login page or homepage after a delay
         const timer = setTimeout(() => {
             navigate("/admin");
-        }, 3000); // Adjust delay time as needed
+        }, 1500); // Adjust delay time as needed
 
         return () => clearTimeout(timer); // Cleanup timeout
     }, [navigate]);
