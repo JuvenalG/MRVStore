@@ -42,7 +42,12 @@ const Store = ({ addToCart }) => {
             <div style={{ display: "flex", gap: "20px", flexWrap: "wrap" }}>
                 {items.map((item) => (
                     <div key={item.id} style={{ border: "1px solid #ddd", padding: "10px", width: "200px" }}>
-                        <img src={item.image} alt={item.title} style={{ width: "100%" }} />
+                        {/* Display the image from imageUrl */}
+                        <img
+                            src={item.imageUrl || "https://via.placeholder.com/200"} // Fallback placeholder if imageUrl is missing
+                            alt={item.title}
+                            style={{ width: "100%", height: "auto" }}
+                        />
                         <h3>{item.title}</h3>
                         <p>{item.description}</p>
                         <p>${item.price.toFixed(2)}</p>
