@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Admin from "./pages/admin";
+import Admin from "./pages/Admin";
 import Logout from "./pages/Logout";
 import Home from "./pages/Home";
 import Store from "./pages/Store";

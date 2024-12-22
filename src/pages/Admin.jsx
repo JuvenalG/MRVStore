@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "react-oidc-context";
 import axios from "axios";
 import "./Admin.css";
+import ImageHandler from "./AdminCalls/ImageHandler"; // Import the ImageHandler component
 
 function Admin() {
     const auth = useAuth();
@@ -14,14 +15,13 @@ function Admin() {
         title: '',
         description: '',
         price: '',
-        imageUrl: '',
+        imageUrl: '', // imageUrl is set by ImageHandler
     }); // State for the new item form
     const [deliveryFee, setDeliveryFee] = useState(0); // State for delivery fee
 
     const apiUrl = "https://api.mrvco.com/createItem"; // Replace with your actual API Gateway URL
-    const deleteApiUrl = "https://e6kqry5fv9.execute-api.us-west-1.amazonaws.com/default/createItem"; // Same as above for delete
+    const deleteApiUrl = "https://api.mrvco.com/createItem"; // Same as above for delete
     const optionsUrl = "https://api.mrvco.com/options";
-
 
     // Fetch items from the DynamoDB table
     const fetchItems = async () => {
@@ -112,7 +112,6 @@ function Admin() {
         signOutRedirect();
     };
 
-
     // Delete an item
     const deleteItem = async (itemId) => {
         try {
@@ -153,7 +152,6 @@ function Admin() {
 
             if (response.status === 200) {
                 console.log("New item added successfully.");
-                // Optionally, refetch items to sync with the backend
                 fetchItems(); // Refetch the item list from the server
 
                 setNewItem({
@@ -179,6 +177,14 @@ function Admin() {
             fetchDeliveryFee(); // Fetch delivery fee from the API
         }
     }, [auth.isAuthenticated]);
+
+    // Handle Image URL update from ImageHandler component
+    const handleImageUrlChange = (url) => {
+        setNewItem((prevState) => ({
+            ...prevState,
+            imageUrl: url, // Set image URL received from ImageHandler
+        }));
+    };
 
     // Render loading state
     if (auth.isLoading) {
@@ -270,6 +276,10 @@ function Admin() {
                         </table>
                     )}
                 </div>
+
+                {/* ImageHandler Component */}
+                <ImageHandler setItemImageUrl={handleImageUrlChange} />
+
                 <button onClick={() => signOutOrder()}>Sign out</button>
             </div>
         );
