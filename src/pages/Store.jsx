@@ -17,7 +17,12 @@ const Store = ({ addToCart }) => {
                         },
                     }
                 );
-                setItems(response.data);
+                setItems(
+                    response.data.map((item, index) => ({
+                        ...item,
+                        id: item.id || `${item.title}-${index}`, // Ensure each item has a unique ID
+                    }))
+                );
             } catch (err) {
                 setError("Failed to fetch items. " + err.message);
             } finally {
@@ -42,7 +47,6 @@ const Store = ({ addToCart }) => {
             <div style={{ display: "flex", gap: "20px", flexWrap: "wrap" }}>
                 {items.map((item) => (
                     <div key={item.id} style={{ border: "1px solid #ddd", padding: "10px", width: "200px" }}>
-                        {/* Display the image from imageUrl */}
                         <img
                             src={item.imageUrl || "https://via.placeholder.com/200"} // Fallback placeholder if imageUrl is missing
                             alt={item.title}
@@ -51,6 +55,7 @@ const Store = ({ addToCart }) => {
                         <h3>{item.title}</h3>
                         <p>{item.description}</p>
                         <p>${item.price.toFixed(2)}</p>
+                        {/* Properly bind the current item to the onClick handler */}
                         <button onClick={() => addToCart(item)}>Add to Cart</button>
                     </div>
                 ))}

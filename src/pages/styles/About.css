@@ -1,0 +1,65 @@
+/* Image Section */
+.image-section {
+    display: flex;
+    justify-content: space-between;
+    /* Separate left and right images */
+    align-items: center;
+    /* Center align vertically */
+    background-color: #f9f9f9;
+    /* Optional: Light gray background */
+    margin: 0;
+    /* Remove padding to allow full expansion */
+    padding: 0;
+    /* Ensure no padding restricts the images */
+}
+
+/* Image Wrapper */
+.image-wrapper {
+    display: flex;
+    flex: 1;
+    /* Allow images to take full width */
+    gap: 20px;
+    /* Space between the images */
+}
+
+/* Left and Right Image Containers */
+.image-left,
+.image-right {
+    flex: 1;
+    /* Both images take equal space */
+    overflow: hidden;
+    /* Prevent overflowing content */
+}
+
+/* Images with Taller Appearance */
+.rectangular-image {
+    width: 100%;
+    /* Make images fill the container's width */
+    height: 100%;
+    /* Make images fill the container's height */
+    max-height: 600px;
+    /* Limit maximum height */
+    object-fit: cover;
+    /* Ensure the image fills the space while maintaining aspect ratio */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .image-wrapper {
+        flex-direction: column;
+        /* Stack images vertically */
+    }
+
+    .image-left,
+    .image-right {
+        flex: none;
+        /* Disable flex for stacked layout */
+    }
+
+    .rectangular-image {
+        max-height: 400px;
+        /* Adjust height for smaller screens */
+        max-width: 100%;
+        /* Allow full width in smaller viewports */
+    }
+}

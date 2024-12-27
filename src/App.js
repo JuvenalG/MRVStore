@@ -4,59 +4,75 @@ import Admin from "./pages/Admin";
 import Logout from "./pages/Logout";
 import Home from "./pages/Home";
 import Store from "./pages/Store";
+import About from "./pages/About"; // Import the About component
+import FAQ from "./pages/FAQ"; // Import the FAQ component
+import Contact from "./pages/Contact"; // Import the Contact component
+import Gallery from "./pages/Gallery"; // Import the Gallery component
 import CartBubble from "./components/CartBubble";
 import CartOverlay from "./components/CartOverlay";
 import Navbar from "./components/Navbar";
 import axios from "axios";
-import './App.css';
+import "./App.css";
 
 function App() {
   const [cartItems, setCartItems] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [tax, setTax] = useState(0.1); // Placeholder until fetched from the table
   const [deliveryFee, setDeliveryFee] = useState(5.0); // Placeholder until fetched from the table
 
+  // Fetch delivery fee from the backend
   useEffect(() => {
-    const fetchTaxAndDelivery = async () => {
+    const fetchDeliveryFee = async () => {
       try {
         const response = await axios.get(
-          "https://alx55pkslj.execute-api.us-west-1.amazonaws.com/default/getItem", // Replace with your actual API URL
+          "https://alx55pkslj.execute-api.us-west-1.amazonaws.com/default/getItem",
           {
             params: {
-              TableName: "Settings", // Assuming the table where tax and delivery are stored
+              TableName: "Settings", // Assuming the table where delivery fee is stored
             },
           }
         );
 
         const settings = response.data;
-        const taxSetting = settings.find((item) => item.key === "tax");
         const deliverySetting = settings.find((item) => item.key === "delivery");
 
-        if (taxSetting) setTax(parseFloat(taxSetting.value));
         if (deliverySetting) setDeliveryFee(parseFloat(deliverySetting.value));
       } catch (error) {
-        console.error("Failed to fetch tax and delivery settings:", error);
+        console.error("Failed to fetch delivery fee:", error);
       }
     };
 
-    fetchTaxAndDelivery();
+    fetchDeliveryFee();
   }, []);
 
+  // Add an item to the cart
   const addToCart = (item) => {
+    console.log("Adding item:", item);
+
     setCartItems((prevCart) => {
+      console.log("Previous cart state:", prevCart);
+
       const existingItem = prevCart.find((cartItem) => cartItem.id === item.id);
+
       if (existingItem) {
-        return prevCart.map((cartItem) =>
+        // Update quantity for existing item
+        const updatedCart = prevCart.map((cartItem) =>
           cartItem.id === item.id
             ? { ...cartItem, quantity: cartItem.quantity + 1 }
             : cartItem
         );
+        console.log("Updated cart state (incremented quantity):", updatedCart);
+        return updatedCart;
       } else {
-        return [...prevCart, { ...item, quantity: 1 }];
+        // Add new item to cart
+        const newCart = [...prevCart, { ...item, quantity: 1 }];
+        console.log("Updated cart state (new item added):", newCart);
+        return newCart;
       }
     });
   };
 
+
+  // Update the quantity of an item in the cart
   const updateQuantity = (id, quantity) => {
     setCartItems((prevCart) =>
       prevCart
@@ -65,14 +81,14 @@ function App() {
     );
   };
 
+  // Calculate cart summary
   const calculateSummary = () => {
     const subtotal = cartItems.reduce(
       (sum, item) => sum + item.price * item.quantity,
       0
     );
-    const taxAmount = subtotal * tax;
-    const total = subtotal + taxAmount + deliveryFee;
-    return { subtotal, taxAmount, total };
+    const total = subtotal + deliveryFee;
+    return { subtotal, total };
   };
 
   const summary = calculateSummary();
@@ -89,7 +105,6 @@ function App() {
         cartItems={cartItems}
         updateQuantity={updateQuantity}
         summary={summary}
-        tax={tax}
         deliveryFee={deliveryFee}
         onClose={() => setIsCartOpen(false)}
       />
@@ -101,13 +116,13 @@ function App() {
         />
         <Route
           path="/admin"
-          element={<Admin setTax={setTax} setDeliveryFee={setDeliveryFee} />} // Updated admin props
+          element={<Admin setDeliveryFee={setDeliveryFee} />}
         />
         <Route path="/logout" element={<Logout />} />
-        <Route path="/about" element={<div><h1>About Us</h1><p>Information about us.</p></div>} />
-        <Route path="/faq" element={<div><h1>FAQ</h1><p>Frequently asked questions.</p></div>} />
-        <Route path="/contact" element={<div><h1>Contact</h1><p>Contact details here.</p></div>} />
-        <Route path="/gallery" element={<div><h1>Gallery</h1><p>Gallery images here.</p></div>} />
+        <Route path="/about" element={<About />} />
+        <Route path="/faq" element={<FAQ />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/gallery" element={<Gallery />} />
       </Routes>
     </Router>
   );

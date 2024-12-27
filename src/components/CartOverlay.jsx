@@ -1,8 +1,12 @@
 import React from "react";
 
+const CartOverlay = ({ isOpen, cartItems, updateQuantity, summary, deliveryFee, onClose }) => {
+    console.log("Cart items in CartOverlay:", cartItems);
 
-const CartOverlay = ({ isOpen, cartItems, updateQuantity, summary, tax, deliveryFee, onClose }) => {
     if (!isOpen) return null;
+
+    const subtotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
+    const total = subtotal + deliveryFee;
 
     return (
         <div className="cart-overlay">
@@ -16,7 +20,11 @@ const CartOverlay = ({ isOpen, cartItems, updateQuantity, summary, tax, delivery
                         <ul className="cart-items">
                             {cartItems.map((item) => (
                                 <li key={item.id} className="cart-item">
-                                    <img src={item.image} alt={item.title} />
+                                    <img
+                                        src={item.imageUrl || "https://via.placeholder.com/200"}
+                                        alt={item.title}
+                                        style={{ width: "50px", height: "50px" }}
+                                    />
                                     <div>
                                         <h3>{item.title}</h3>
                                         <p>${item.price.toFixed(2)}</p>
@@ -31,10 +39,9 @@ const CartOverlay = ({ isOpen, cartItems, updateQuantity, summary, tax, delivery
                             ))}
                         </ul>
                         <div className="summary">
-                            <p>Subtotal: ${summary.subtotal.toFixed(2)}</p>
-                            <p>Tax: ${summary.taxAmount.toFixed(2)}</p>
+                            <p>Subtotal: ${subtotal.toFixed(2)}</p>
                             <p>Delivery: ${deliveryFee.toFixed(2)}</p>
-                            <h3>Total: ${summary.total.toFixed(2)}</h3>
+                            <h3>Total: ${total.toFixed(2)}</h3>
                         </div>
                     </div>
                 )}

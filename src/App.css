@@ -6,7 +6,7 @@
   /* Purple */
   --secondary-color: #333;
   /* Dark Gray */
-  --background-color: #F5F5F5;
+  --background-color: white;
   /* Light Gray */
   --text-color: #333;
   /* Standard Text */
@@ -33,7 +33,7 @@ a {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: var(--primary-color);
+  background-color: black;
   padding: 10px 20px;
   height: 80px;
   /* Standard height for the navbar */
@@ -84,6 +84,114 @@ a {
 .navbar li a:hover {
   color: #FFC107;
   /* Gold Accent on Hover */
+}
+
+/* Home Page Styles */
+.home-container {
+  font-family: var(--font-family);
+  padding: 0px;
+}
+
+/* Hero Section */
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 40px 20px;
+  background-color: var(--background-color);
+}
+
+.hero-content {
+  max-width: 50%;
+}
+
+.hero-content h1 {
+  font-size: 2.5rem;
+  color: var(--primary-color);
+  margin-bottom: 20px;
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.hero-content button {
+  font-size: 1rem;
+}
+
+.hero-image {
+  max-width: 45%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Featured Products Section */
+.featured-products {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.featured-products h2 {
+  font-size: 2rem;
+  color: var(--primary-color);
+  margin-bottom: 20px;
+}
+
+.products-grid {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.product-card {
+  background-color: var(--accent-color);
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  width: 300px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.product-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+
+.product-card h3 {
+  font-size: 1.2rem;
+  color: var(--primary-color);
+  margin-bottom: 10px;
+}
+
+.product-card p {
+  font-size: 1rem;
+  margin-bottom: 15px;
+}
+
+/* About Section */
+.about-section {
+  margin-top: 40px;
+  padding: 20px;
+  text-align: center;
+  background-color: var(--background-color);
+}
+
+.about-section h2 {
+  font-size: 2rem;
+  color: var(--primary-color);
+  margin-bottom: 20px;
+}
+
+.about-section p {
+  font-size: 1.2rem;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 /* Cart Bubble Styles */
@@ -192,4 +300,490 @@ button {
 
 button:hover {
   background-color: var(--secondary-color);
+}
+
+/* Parallax Banner Container */
+.parallax-banner-container {
+  text-align: center;
+  background-color: var(--background-color);
+  /* Background for text area */
+  margin: 0;
+  /* Ensure no margin is added by the container */
+  padding: 0;
+  /* Remove padding if any */
+}
+
+/* Title above the banner */
+.banner-title {
+  font-size: 2.5rem;
+  color: var(--primary-color);
+  margin-bottom: 20px;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  /* Optional shadow */
+}
+
+/* Parallax Banner Section */
+.parallax-banner {
+  width: 100vw;
+  /* Ensure full viewport width */
+  height: 400px;
+  /* Adjust height as needed */
+  background-image: url("https://mrv-assets.s3.us-west-1.amazonaws.com/grazing2.jpg");
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin: 0;
+  /* Remove margins */
+  max-width: none;
+  /* Remove max-width constraints */
+}
+
+/* About Section */
+.about-section {
+  display: flex;
+  justify-content: center;
+  /* Center the content horizontally */
+  align-items: center;
+  /* Align the content vertically */
+  padding: 40px 20px;
+  background-color: var(--background-color);
+}
+
+/* About Section */
+.about-section {
+  display: flex;
+  justify-content: center;
+  /* Center the content horizontally */
+  align-items: center;
+  /* Align the content vertically */
+  padding: 40px 20px;
+  background-color: var(--background-color);
+}
+
+.about-content {
+  display: flex;
+  flex-wrap: wrap;
+  /* Stack sections vertically on smaller screens */
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  width: 100%;
+  /* Ensure it spans the available space */
+}
+
+.about-left,
+.about-right {
+  flex: 1;
+  /* Ensure both sections take up equal space */
+  min-width: 300px;
+  /* Minimum width for smaller screens */
+  padding: 20px;
+}
+
+.about-left img {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  border-radius: 10px;
+}
+
+.about-right p {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  margin-bottom: 20px;
+}
+
+.about-right button {
+  background-color: var(--primary-color);
+  color: var(--accent-color);
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.about-right button:hover {
+  background-color: var(--secondary-color);
+}
+
+/* Second Section */
+.image-section {
+  display: flex;
+  justify-content: center;
+  /* Center the content horizontally */
+  align-items: center;
+  /* Align the content vertically */
+  background-color: var(--background-color);
+  margin: 0;
+  /* Ensure no extra margin is added */
+  padding: 0;
+  /* Remove padding to allow full-width images */
+}
+
+.image-content {
+  display: flex;
+  flex-wrap: nowrap;
+  /* Ensure sections stay side by side unless the screen is too small */
+  justify-content: space-between;
+  align-items: stretch;
+  /* Stretch sections to match parent height */
+  width: 100%;
+  /* Span the full width */
+}
+
+.image-left,
+.image-right {
+  flex: 1;
+  /* Ensure both sections take up equal space */
+  min-width: 50%;
+  /* Maintain 50% split */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  /* Prevent overflow issues for large images */
+}
+
+.image-left img,
+.image-right img {
+  width: 100%;
+  /* Fill the width of the parent container */
+  height: 100%;
+  /* Fill the height of the parent container */
+  object-fit: cover;
+  /* Maintain aspect ratio and crop if necessary */
+}
+
+/* Responsive Layout for Second Section */
+@media (max-width: 768px) {
+  .image-content {
+    flex-wrap: wrap;
+    /* Stack sections vertically on smaller screens */
+  }
+
+  .image-left,
+  .image-right {
+    flex: 0 0 100%;
+    /* Ensure each image takes full width */
+    height: auto;
+    /* Allow images to resize naturally */
+  }
+
+  .image-left img,
+  .image-right img {
+    width: 100%;
+    /* Ensure images span the full width */
+    height: auto;
+    /* Allow images to resize proportionally */
+  }
+}
+
+/* Features Section */
+.features-section {
+  padding: 40px 20px;
+  /* Add padding around the section */
+  background-color: #fff;
+  /* White background for contrast */
+  text-align: center;
+  /* Center align content */
+}
+
+.features-content {
+  display: flex;
+  justify-content: space-between;
+  /* Space between the two items */
+  align-items: center;
+  /* Vertically align items */
+  gap: 20px;
+  /* Optional: Adjust gap between items if needed */
+  max-width: 1200px;
+  /* Restrict maximum width */
+  margin: 0 auto;
+  /* Center the container */
+}
+
+.feature-item {
+  flex: 1;
+  /* Ensure each feature takes up 50% */
+  display: flex;
+  flex-direction: column;
+  /* Stack icon and text vertically */
+  align-items: center;
+  /* Center items within each feature */
+  text-align: center;
+  /* Center-align text */
+}
+
+.feature-icon {
+  width: 120px;
+  /* Increase icon size */
+  height: auto;
+  /* Maintain aspect ratio */
+  margin-bottom: 10px;
+  /* Space between icon and title */
+}
+
+.feature-title {
+  font-size: 1.5rem;
+  /* Adjust text size */
+  font-weight: bold;
+  /* Bold title for emphasis */
+  color: #2c2c2c;
+  /* Dark text color */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .features-content {
+    flex-wrap: wrap;
+    /* Stack items vertically */
+  }
+
+  .feature-item {
+    flex: 100%;
+    /* Make each item take full width */
+  }
+
+  .feature-icon {
+    width: 100px;
+    /* Slightly reduce size for smaller screens */
+  }
+}
+
+/* About Section */
+.about-container {
+  text-align: center;
+  /* Center align all content */
+  padding: 40px 20px;
+  background-color: #fff;
+  /* White background */
+}
+
+.about-small-text {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1rem;
+  /* Small font size */
+  color: #6A1B9A;
+  /* Purple color */
+  margin-bottom: 10px;
+  /* Add spacing below the text */
+  text-transform: uppercase;
+  /* Make text uppercase */
+  letter-spacing: 2px;
+  /* Add letter spacing for style */
+}
+
+.about-header {
+  font-family: "Montserrat", sans-serif;
+  font-size: 2.5rem;
+  /* Large font size for the header */
+  color: #2C2C2C;
+  /* Dark text color */
+  margin: 0;
+  /* Remove default margins */
+}
+
+.about-line {
+  width: 100%;
+  /* Make the line span the full width */
+  max-width: 200px;
+  /* Restrict the line's width */
+  height: 4px;
+  /* Line thickness */
+  background-color: #E63946;
+  /* Red color */
+  margin: 20px auto;
+  /* Center the line with margin */
+}
+
+.about-image {
+  width: 100%;
+  /* Make the image responsive */
+  max-width: 800px;
+  /* Restrict maximum width */
+  height: auto;
+  /* Maintain aspect ratio */
+  margin-top: 20px;
+  /* Add spacing above the image */
+  border-radius: 10px;
+  /* Optional: Add rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  /* Optional: Add a subtle shadow */
+}
+
+/* About Section */
+.about-container {
+  text-align: center;
+  /* Center align all content */
+  padding: 40px 20px;
+  background-color: #fff;
+  /* White background */
+}
+
+.about-small-text {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1rem;
+  /* Small font size */
+  color: #6A1B9A;
+  /* Purple color */
+  margin-bottom: 10px;
+  /* Add spacing below the text */
+  text-transform: uppercase;
+  /* Make text uppercase */
+  letter-spacing: 2px;
+  /* Add letter spacing for style */
+}
+
+.about-header {
+  font-family: "Montserrat", sans-serif;
+  font-size: 2.5rem;
+  /* Large font size for the header */
+  color: #2C2C2C;
+  /* Dark text color */
+  margin: 0;
+  /* Remove default margins */
+}
+
+.about-line {
+  width: 100%;
+  /* Make the line span the full width */
+  max-width: 200px;
+  /* Restrict the line's width */
+  height: 4px;
+  /* Line thickness */
+  background-color: #E63946;
+  /* Red color */
+  margin: 20px auto;
+  /* Center the line with margin */
+}
+
+.about-image {
+  width: 100%;
+  /* Make the image responsive */
+  max-width: 800px;
+  /* Restrict maximum width */
+  height: auto;
+  /* Maintain aspect ratio */
+  margin-top: 20px;
+  /* Add spacing above the image */
+  border-radius: 10px;
+  /* Optional: Add rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  /* Optional: Add a subtle shadow */
+}
+
+/* Our Story Section */
+.our-story-section {
+  display: flex;
+  justify-content: center;
+  /* Center align the content horizontally */
+  align-items: center;
+  /* Align items vertically */
+  padding: 40px 20px;
+  background-color: #fff;
+  /* White background */
+  text-align: left;
+  /* Align text to the left */
+}
+
+.our-story-content {
+  display: flex;
+  flex-wrap: wrap;
+  /* Stack sections on smaller screens */
+  max-width: 1200px;
+  width: 100%;
+  gap: 20px;
+  position: relative;
+}
+
+/* Left Section Styling */
+.our-story-left {
+  flex: 1;
+  animation: float-in-left 1s ease-in-out forwards;
+  opacity: 0;
+  /* Initially hidden for animation */
+  text-align: left;
+}
+
+.our-story-header {
+  font-family: "Montserrat", sans-serif;
+  font-size: 2.5rem;
+  color: #2C2C2C;
+  margin-bottom: 10px;
+}
+
+.our-story-subheader {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1rem;
+  color: #6A1B9A;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+}
+
+/* Right Section Styling */
+.our-story-right {
+  flex: 2;
+  animation: float-in-right 1s ease-in-out forwards;
+  animation-delay: 0.5s;
+  /* Delayed animation */
+  opacity: 0;
+  /* Initially hidden for animation */
+  line-height: 1.8;
+  color: #2C2C2C;
+  text-align: justify;
+}
+
+.signature {
+  display: block;
+  margin-top: 20px;
+  font-style: italic;
+  font-weight: bold;
+  text-align: right;
+  color: #6A1B9A;
+  /* Purple for signature */
+}
+
+/* Animation Keyframes */
+@keyframes float-in-left {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes float-in-right {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .our-story-content {
+    flex-direction: column;
+    /* Stack sections vertically */
+  }
+
+  .our-story-left,
+  .our-story-right {
+    flex: 100%;
+    /* Full width for both sections */
+  }
 }
